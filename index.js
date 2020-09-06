@@ -22,7 +22,7 @@ const app = express();
 
 
 app.get('/', (req, res) => {
-    res.send({ hi: 'there' });
+    res.send({ hi: 'Hello there' });
 });
 
 //app.Listen(5000) --> instructs express to run in this port 5000

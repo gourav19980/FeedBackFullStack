@@ -1,12 +1,30 @@
 //emported expres library
 const express = require('express');
-
+const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+const keys = require('./config/keys');
+require('./models/Users');
+require('./services/passport');
 //generates an application
+
+mongoose.connect(keys.mongoURI);
 
 const app = express();
 
+app.use(
+    cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys:[keys.cookieKey]
+    })
+);
 
-//create route handler with associated route
+app.use(passport.initialize());
+app.use(passport.session());
+
+// below line is similar to const authRoute= require('./routes/authRoutes); ___________ authRoutes(app)
+
+require('./routes/authRoutes')(app);
 
 // app --> Express App to register this route handler with
 
@@ -21,15 +39,18 @@ const app = express();
 //res.send({hi:'there'}) --> Immediately send some JSON to who ever made this request
 
 
-app.get('/', (req, res) => {
-    res.send({ hi: 'Hello there' });
-});
+// app.get('/', (req, res) => {
+//     res.send({ hi: 'Hello there' });
+// });
 
 //app.Listen(5000) --> instructs express to run in this port 5000
 
 //env variable is given port at run time
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
+
+
+
 
 
 /** some Other methods

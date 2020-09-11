@@ -28,7 +28,17 @@ app.use(passport.session());
 // below line is similar to const authRoute= require('./routes/authRoutes); ___________ authRoutes(app)
 
 require('./routes/authRoutes')(app);
-require('./routes/billingRoutes')(app);
+
+if(process.env.NODE_ENV === 'production'){
+    // making sure that Express will serves us production asset i.e, main.js and main.js
+    app.use(express.static('client/build'));
+
+    //Express will send index.js if no route is there
+    const path = require('path');
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'client','build','index.js'))
+    });
+}
 
 // app --> Express App to register this route handler with
 

@@ -6,6 +6,7 @@ const passport = require('passport');
 const bodyParser=require('body-parser');
 const keys = require('./config/keys');
 require('./models/Users');
+require('./models/Survey');
 require('./services/passport');
 //generates an application
 
@@ -28,6 +29,8 @@ app.use(passport.session());
 // below line is similar to const authRoute= require('./routes/authRoutes); ___________ authRoutes(app)
 
 require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
+require('./routes/surveysRoutes')(app);
 
 if(process.env.NODE_ENV === 'production'){
     // making sure that Express will serves us production asset i.e, main.js and main.js

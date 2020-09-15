@@ -1,7 +1,7 @@
 const keys=require('../../config/keys');
 
 module.exports=(survey)=>{
-    return `
+    return (`
         <html>
             <body>
                 <div style="text-align : center;">
@@ -19,5 +19,5 @@ module.exports=(survey)=>{
         </html>
 
     
-    `;
+    `);
 }

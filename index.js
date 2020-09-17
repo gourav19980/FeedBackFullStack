@@ -38,6 +38,7 @@ if(process.env.NODE_ENV === 'production'){
     //Express will send index.js if no route is there
     const path = require('path');
     app.get('*',(req,res)=>{
+        //res.header("Access-Control-Allow-Origin", "*");
         res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     });
 }

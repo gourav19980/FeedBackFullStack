@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const Path = require('path-parser');
+const {Path} = require('path-parser');
 const {URL} = require('url');
 const mongoose=require('mongoose');
 const requireLogin=require('../middleware/requireLogin');
@@ -36,7 +36,7 @@ module.exports = (app) => {
                 Survey.updateOne({
                     _id:surveyId,
                     recipients:{
-                        $elemmatch:{email:email,responded:false}
+                        $elemMatch:{email:email,responded:false}
                     }
                 },{
                     $inc:{[choice]:1},
